@@ -1,4 +1,4 @@
-# Word Search
+<!-- # Word Search
 
 ## Requirements
 
@@ -10,7 +10,7 @@ Use a JavaScript file to act as a Node.js program named `word-search.js`.
 This program should read a file `/usr/share/dict/words`. This file is used by
 the operating system for spell checking. If this file does not exist on your
 system, you can use one from GitHub such as: https://github.com/atebits/Words
-
+ -->
 Allow an argument to be passed to this program which should be used as a search
 term. The case of the search term should not matter. If no argument is passed,
 respond only with a simple [usage message][usage].
