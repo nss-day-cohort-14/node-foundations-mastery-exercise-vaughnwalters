@@ -1,39 +1,29 @@
+"use strict"
+
 const {createReadStream} = require("fs");
 const readStream = createReadStream("/usr/share/dict/words")
 const {Transform} = require('stream');
 const transformStream = Transform();
+const es = require('event-stream')
 let [,, arg] = process.argv;
-var es = require('event-stream')
-
-// arg = arg.toString();
-// console.log("readStream", readStream);
-
-// console.log("es", es.map);
 
 
-
-// // // readStream.pipe(process.stdout)
-// // // when i get transform stream
-// readStream.pipe(transformStream).pipe(process.stdout);
-
-
-
-
-
-// using event-stream, but no line breaks
-
- readStream  //connect streams together with `pipe`
-    .pipe(es.split()) //split stream to break on newlines
-    .pipe(es.map(function (line, cb) { //turn this async function into a stream
-      cb(null, line.toString().toLowerCase()+"\n")   //render it nicely
-    }))
-    .pipe(process.stdout)              // pipe it to stdout !
-// }
+readStream  //connect streams together with `pipe`
+  .pipe(es.split()) //split stream to break on newlines
+  .pipe(es.map(function (line, cb) { //turn this async function into a stream
+    let word = line.toString().toLowerCase()+"\n"
+    if (word.startsWith(arg)) { 
+      cb(null, word)   //render it nicely
+    } else {
+      // throw out data if it doesn't meet the criteria
+      cb();
+    } 
+  }))
+  .pipe(process.stdout)
+  // .pipe(transformStream).pipe(process.stdout)              
 
 
-// transformStream._transform = (buffer, encoding, cb) => {
-//   cb(null, buffer.toString().toLowerCase())
-// }
+
 
 
 
