@@ -2,10 +2,20 @@
 
 const {createReadStream} = require("fs");
 const readStream = createReadStream("/usr/share/dict/words")
-const {Transform} = require('stream');
-const transformStream = Transform();
+// const {Transform} = require('stream');
+// const transformStream = Transform();
 const es = require('event-stream')
+const transformStream = require("./limit-ten").transformStream
 let [,, arg] = process.argv;
+
+// this is where my transform function is
+// console.log(transformStream.transformStream._transform());
+
+
+// arg = /arg/i;
+// arg = arg.ignoreCase;
+// console.log("arg", arg);
+
 
 
 readStream  //connect streams together with `pipe`
@@ -19,8 +29,8 @@ readStream  //connect streams together with `pipe`
       cb();
     } 
   }))
-  .pipe(process.stdout)
-  // .pipe(transformStream).pipe(process.stdout)              
+  // .pipe(process.stdout)
+  .pipe(transformStream).pipe(process.stdout)              
 
 
 

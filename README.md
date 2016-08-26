@@ -17,9 +17,9 @@ respond only with a simple [usage message][usage].
 
 Limit the results to only ten words and case should not matter.
 
-Start with a `createReadStream` and use the [event-stream][es] module's `split`
+<!-- Start with a `createReadStream` and use the [event-stream][es] module's `split`
 and `map` methods to manipulate the stream.
-
+ -->
 You will also create your own `Transform` stream as a module called
 `limit-ten.js`. This `Transform` should be a limiter before finally `pipe`ing
 the results to stdout.
