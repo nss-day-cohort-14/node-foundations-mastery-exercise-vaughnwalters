@@ -11,19 +11,19 @@ This program should read a file `/usr/share/dict/words`. This file is used by
 the operating system for spell checking. If this file does not exist on your
 system, you can use one from GitHub such as: https://github.com/atebits/Words
  -->
-Allow an argument to be passed to this program which should be used as a search
+<!-- Allow an argument to be passed to this program which should be used as a search
 term. The case of the search term should not matter. If no argument is passed,
 respond only with a simple [usage message][usage].
-
-Limit the results to only ten words and case should not matter.
-
+ -->
+<!-- Limit the results to only ten words and case should not matter.
+ -->
 <!-- Start with a `createReadStream` and use the [event-stream][es] module's `split`
 and `map` methods to manipulate the stream.
  -->
-You will also create your own `Transform` stream as a module called
+<!-- You will also create your own `Transform` stream as a module called
 `limit-ten.js`. This `Transform` should be a limiter before finally `pipe`ing
 the results to stdout.
-
+ -->
 Expected:
 
 ```bash

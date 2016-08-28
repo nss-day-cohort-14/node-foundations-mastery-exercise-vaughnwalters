@@ -5,21 +5,17 @@ const readStream = createReadStream("/usr/share/dict/words")
 const es = require('event-stream')
 const transformStream = require("./limit-ten").transformStream
 let [,, arg] = process.argv;
-arg = arg.toLowerCase()
-
-// this is where my transform function is
-// console.log(transformStream.transformStream._transform());
 
 
-// arg = /arg/i;
-// arg = arg.ignoreCase;
-// console.log("arg", arg);
-
-
-
-readStream
-//connect streams together with `pipe`
-//split stream to break on newlines
+// searchterm undefined
+if (arg === undefined) {
+  process.stdout.write("Usage: wordsearch.js [searchterm]\n")
+}
+else{
+  arg = arg.toLowerCase()
+  readStream
+  //connect streams together with `pipe`
+  //split stream to break on newlines
   .pipe(es.split())
   .pipe(es.map(function (line, cb) {
 //turn this async function into a stream
@@ -32,7 +28,9 @@ readStream
       cb();
     } 
   }))
-  .pipe(transformStream).pipe(process.stdout)              
+  .pipe(transformStream).pipe(process.stdout)          
+}
+
 
 
 
