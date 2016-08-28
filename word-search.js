@@ -2,11 +2,10 @@
 
 const {createReadStream} = require("fs");
 const readStream = createReadStream("/usr/share/dict/words")
-// const {Transform} = require('stream');
-// const transformStream = Transform();
 const es = require('event-stream')
 const transformStream = require("./limit-ten").transformStream
 let [,, arg] = process.argv;
+arg = arg.toLowerCase()
 
 // this is where my transform function is
 // console.log(transformStream.transformStream._transform());
@@ -18,18 +17,21 @@ let [,, arg] = process.argv;
 
 
 
-readStream  //connect streams together with `pipe`
-  .pipe(es.split()) //split stream to break on newlines
-  .pipe(es.map(function (line, cb) { //turn this async function into a stream
-    let word = line.toString().toLowerCase()+"\n"
-    if (word.startsWith(arg)) { 
-      cb(null, word)   //render it nicely
+readStream
+//connect streams together with `pipe`
+//split stream to break on newlines
+  .pipe(es.split())
+  .pipe(es.map(function (line, cb) {
+//turn this async function into a stream
+    let word = line.toString()+"\n"
+    let wordLower = line.toString().toLowerCase()+"\n"
+    if (wordLower.startsWith(arg)) { 
+      cb(null, word)
     } else {
-      // throw out data if it doesn't meet the criteria
+// throw out data if it doesn't meet the criteria
       cb();
     } 
   }))
-  // .pipe(process.stdout)
   .pipe(transformStream).pipe(process.stdout)              
 
 
