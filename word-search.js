@@ -5,7 +5,7 @@
 const {createReadStream} = require("fs");
 const readStream = createReadStream("/usr/share/dict/words")
 const es = require('event-stream')
-const transformStream = require("./limit-ten").transformStream
+const limitTen = require("./limit-ten").limitTen
 let [,, arg] = process.argv;
 
 
@@ -29,5 +29,5 @@ if (arg === undefined) {
       cb();
     } 
   }))
-  .pipe(transformStream).pipe(process.stdout)          
+  .pipe(limitTen).pipe(process.stdout)          
 }
